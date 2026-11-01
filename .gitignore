@@ -1,0 +1,12 @@
+# 재배포 조건 확인 전까지 원문 데이터는 올리지 않는다.
+data/raw/
+data/processed/
+웰니스 대화 스크립트 데이터셋/
+
+.env
+.env.*
+
+__pycache__/
+*.pyc
+.venv/
+.claude/

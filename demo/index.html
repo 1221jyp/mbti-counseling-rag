@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MBTI 상담 RAG 데모</title>
+<style>
+  :root { --bg:#f6f5f2; --panel:#fff; --ink:#23262b; --muted:#6b7078; --line:#e3e1dc; --accent:#2f6f6a; --case:#3f6bb0; --info:#2f7d4f; --crisis:#b3392f; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 "Pretendard","Malgun Gothic",system-ui,sans-serif; }
+  main { max-width:1120px; margin:0 auto; padding:24px 16px 40px; }
+  header { display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
+  h1 { font-size:22px; margin:0; }
+  h2 { font-size:15px; margin:0 0 10px; color:var(--muted); font-weight:600; }
+  #status { font-size:13px; color:var(--muted); }
+  form { display:flex; gap:8px; margin-bottom:10px; }
+  input { flex:1; min-width:0; padding:12px 14px; font:inherit; border:1px solid var(--line); border-radius:8px; background:var(--panel); color:inherit; }
+  button { padding:0 18px; font:inherit; font-weight:600; border:0; border-radius:8px; background:var(--accent); color:#fff; cursor:pointer; }
+  button:disabled { opacity:.5; cursor:wait; }
+  .samples { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+  .samples button { padding:5px 10px; font-size:13px; font-weight:400; background:var(--panel); color:var(--ink); border:1px solid var(--line); }
+  .grid { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:16px; align-items:start; }
+  @media (max-width:760px) { .grid { grid-template-columns:minmax(0,1fr); } }
+  section { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px; }
+  #answer { white-space:pre-wrap; }
+  .empty { color:var(--muted); font-size:14px; }
+  .error { color:var(--crisis); font-size:14px; }
+  .crisis { border-left:4px solid var(--crisis); padding-left:12px; }
+  .crisis strong { color:var(--crisis); }
+  .crisis a { color:inherit; font-weight:700; }
+  article { border-top:1px solid var(--line); padding:12px 0; }
+  article:first-of-type { border-top:0; padding-top:0; }
+  .meta { display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:13px; margin-bottom:4px; }
+  .badge { color:#fff; border-radius:4px; padding:0 6px; font-weight:600; }
+  .badge.case { background:var(--case); }
+  .badge.info { background:var(--info); }
+  .score { color:var(--muted); font-variant-numeric:tabular-nums; }
+  .text { font-size:14px; white-space:pre-wrap; max-height:150px; overflow:auto; }
+  .src { font-size:12px; color:var(--muted); }
+  footer { margin-top:16px; font-size:13px; color:var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>MBTI 연계 상담 챗봇 RAG 데모</h1>
+    <span id="status"></span>
+  </header>
+
+  <form id="form">
+    <input id="message" placeholder="고민을 입력해 보세요" autocomplete="off" aria-label="고민 입력">
+    <button id="send">검색</button>
+  </form>
+  <div class="samples" id="samples"></div>
+
+  <div class="grid">
+    <section><h2>챗봇 답변</h2><div id="answer" class="empty">아직 입력이 없습니다.</div></section>
+    <section><h2>검색된 자료</h2><div id="chunks" class="empty">아직 입력이 없습니다.</div></section>
+  </div>
+
+  <footer>시연용 데모이며 실제 상담을 대신하지 않습니다. 정보 문서 출처: 국가정신건강정보포털(공공누리 제4유형).</footer>
+</main>
+
+<script>
+const samples = [
+  "새벽까지 과제를 하고 누워도 잠이 안 오고 생각만 많아져요.",
+  "강의실에 앉아 있다가 갑자기 숨이 안 쉬어지고 죽을 것 같아서 뛰쳐나왔어요.",
+  "졸업이 다가오는데 서류에서 계속 떨어져서 취업을 못 할까 봐 무서워요.",
+  "발표만 앞두면 심장이 쿵쾅거리고 온몸이 긴장돼요.",
+];
+const $ = (id) => document.getElementById(id);
+const form = $("form"), input = $("message"), send = $("send"), answer = $("answer"), chunks = $("chunks");
+
+function el(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function showAnswer(text, className = "") {
+  answer.className = className;
+  answer.textContent = text;
+}
+
+function showCrisis(contacts) {
+  answer.className = "crisis";
+  answer.replaceChildren(el("strong", "", "지금 많이 힘드신 것 같아요. 혼자 견디지 않으셔도 됩니다."));
+  const list = el("p", "", "");
+  contacts.forEach((c) => {
+    const row = el("div", "", c.name + ": ");
+    const link = el("a", "", c.number);
+    link.href = "tel:" + c.number;
+    row.append(link);
+    list.append(row);
+  });
+  answer.append(list);
+  chunks.className = "empty";
+  chunks.textContent = "위기 표현이 감지되어 검색하지 않았습니다.";
+}
+
+function showChunks(items) {
+  chunks.className = "";
+  chunks.replaceChildren(...items.map((c) => {
+    const card = el("article");
+    const meta = el("div", "meta");
+    meta.append(el("span", "badge " + c.doc_type, c.doc_type), el("strong", "", c.title), el("span", "score", "유사도 " + c.score.toFixed(3)));
+    card.append(meta, el("div", "text", c.text));
+    const src = el("div", "src", c.source + " ");
+    const link = el("a", "", "원문");
+    link.href = c.source_url;
+    link.target = "_blank";
+    link.rel = "noopener";
+    src.append(link);
+    card.append(src);
+    return card;
+  }));
+}
+
+async function ask(message) {
+  send.disabled = true;
+  showAnswer("찾는 중입니다…", "empty");
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message, k: 5 }),
+    });
+    if (!response.ok) throw new Error(response.status);
+    const data = await response.json();
+    if (data.mode === "crisis") return showCrisis(data.contacts);
+    showChunks(data.chunks);
+    if (data.answer) showAnswer(data.answer);
+    else if (data.error) showAnswer(data.error, "error");
+    else showAnswer("검색 전용 모드입니다. API 키를 설정하면 답변이 생성됩니다.", "empty");
+  } catch (error) {
+    showAnswer("서버 요청에 실패했습니다: " + error.message, "error");
+  } finally {
+    send.disabled = false;
+  }
+}
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const message = input.value.trim();
+  if (message) ask(message);
+});
+
+samples.forEach((text) => {
+  const button = el("button", "", text.length > 22 ? text.slice(0, 22) + "…" : text);
+  button.type = "button";
+  button.addEventListener("click", () => { input.value = text; ask(text); });
+  $("samples").append(button);
+});
+
+fetch("/api/status").then((r) => r.json()).then((s) => {
+  $("status").textContent = s.llm ? "답변 생성 켜짐 · " + s.model : "검색 전용 모드";
+});
+</script>
+</body>
+</html>

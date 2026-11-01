@@ -1,0 +1,9 @@
+pandas
+openpyxl
+chromadb
+sentence-transformers
+beautifulsoup4
+lxml
+google-genai
+fastapi
+uvicorn
