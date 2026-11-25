@@ -2,11 +2,24 @@
 
 ## 교재 기반 RAG 확장 (2026-11-25)
 
-- WHO Psychological self-help interventions: 관련 본문을 바탕으로 한국어 심리교육 요약 20개 선별. 원문 페이지와 출처, 라이선스, 번역 고지 포함. 임상적 검증은 아님.
-- OpenStax Psychology 2e: 20개 관련 절의 페이지 범위를 선별했으며, AI 활용 권리 확인 전에는 임베딩하지 않음.
-- 코드: `scripts/build_who_knowledge_index.py`, `rag/who_knowledge.py`; `retrieve(..., n_textbook=2)`로 선택적으로 검색. 기존 DB 및 기본 동작 유지.
-- 실제 JSONL은 로컬에 보관하며 GitHub에는 원문 및 가공 코퍼스를 업로드하지 않음. 실제 임베딩/검색 성능 평가 미실행.
-- 실행 방법 및 라이선스: [docs/TEXTBOOK_KNOWLEDGE.md](docs/TEXTBOOK_KNOWLEDGE.md).
+- WHO 심리교육 20청크, OpenStax Psychology 2e 40청크: 총 60개 선별 데이터. 원문 페이지·절·출처·라이선스 포함. 임상 검증을 의미하지 않음.
+- OpenStax 서면 허가를 받았다는 사용자 보고를 반영함. 허가서 세부 범위 미확인: 로컬 비상업적 RAG에 한정하며 공개 재배포 및 외부 LLM API 사용은 별도 확인 필요.
+- 두 JSONL은 로컬 전달 파일에 포함. GitHub에는 본문 및 벡터 DB를 올리지 않는다. 기존 849청크 기준선 유지.
+- `retrieve(query, k=5, n_expert=0, n_textbook=0, n_openstax=0)` — 신규 데이터는 선택적으로 사용, 기존 기본 동작 보존.
+- 신규 한국어 평가 질문 21개와 `eval/evaluate_textbooks.py` 추가. 라벨은 검토 전 초안.
+- 실제 BGE-M3 임베딩 및 검색 성능 평가 미실행. 로컬 실행 필요.
+
+실행 (별도 전달 JSONL 2개를 `data/processed/`에 복사 후):
+```powershell
+python -m pip install -r requirements.txt
+python scripts/build_who_knowledge_index.py --validate-only
+python scripts/build_openstax_knowledge_index.py --validate-only
+python scripts/build_who_knowledge_index.py --replace
+python scripts/build_openstax_knowledge_index.py --permission-confirmed --replace
+python eval/evaluate_textbooks.py --k 5
+```
+
+자세한 안내: [docs/TEXTBOOK_KNOWLEDGE.md](docs/TEXTBOOK_KNOWLEDGE.md).
 
 ## 새 실험: 검증 근거가 있는 심리학 Q&A만 검색 (2026-11-25)
 
