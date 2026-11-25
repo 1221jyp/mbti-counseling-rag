@@ -1,5 +1,13 @@
 # MBTI 연계 심리상담 챗봇: RAG 데이터셋
 
+## 교재 기반 RAG 확장 (2026-11-25)
+
+- WHO Psychological self-help interventions: 관련 본문을 바탕으로 한국어 심리교육 요약 20개 선별. 원문 페이지와 출처, 라이선스, 번역 고지 포함. 임상적 검증은 아님.
+- OpenStax Psychology 2e: 20개 관련 절의 페이지 범위를 선별했으며, AI 활용 권리 확인 전에는 임베딩하지 않음.
+- 코드: `scripts/build_who_knowledge_index.py`, `rag/who_knowledge.py`; `retrieve(..., n_textbook=2)`로 선택적으로 검색. 기존 DB 및 기본 동작 유지.
+- 실제 JSONL은 로컬에 보관하며 GitHub에는 원문 및 가공 코퍼스를 업로드하지 않음. 실제 임베딩/검색 성능 평가 미실행.
+- 실행 방법 및 라이선스: [docs/TEXTBOOK_KNOWLEDGE.md](docs/TEXTBOOK_KNOWLEDGE.md).
+
 ## 새 실험: 검증 근거가 있는 심리학 Q&A만 검색 (2026-11-25)
 
 - 추가 코드: SIR-Lab/Mental_Health_Knowledge_Dataset 전처리 및 BGE-M3 + Chroma 실험용 컬렉션.
