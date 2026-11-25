@@ -2,17 +2,17 @@
   "source": "OpenStax Psychology 2e (uploaded 2026 edition)",
   "source_url": "https://openstax.org/details/books/psychology-2e",
   "license": "CC BY-NC-SA 4.0",
-  "status": "permission_pending_do_not_embed",
-  "rights_note": "Current online edition requests prior written permission for AI ingestion. Review ranges only; no OpenStax corpus or embedding is created.",
+  "status": "permission_reported_by_user_scope_not_independently_verified",
+  "rights_note": "User reports OpenStax permission obtained. Local noncommercial educational RAG only, and only if written permission covers it. No public distribution or external API use assumed; preserve original permission privately.",
   "pdf_sha256": "2f08113c78127bc684922ad6a819db22bd4705ce9fcf28a07f36a2041b1474e2",
   "sections": [
     {
-      "section": "4.2 Sleep and Why We Sleep",
+      "section": "4.1 What Is Consciousness?",
       "topic": "anxiety_depression_sleep",
       "pdf_page_start": 126,
-      "pdf_page_end": 128,
+      "pdf_page_end": 126,
       "printed_page_start": 114,
-      "printed_page_end": 116
+      "printed_page_end": 114
     },
     {
       "section": "4.4 Sleep Problems and Disorders",
@@ -166,5 +166,46 @@
       "printed_page_start": 622,
       "printed_page_end": 625
     }
-  ]
+  ],
+  "records": 40,
+  "corpus_sha256": "a32d6250716d89263b82872a757b28fa877587a7f8530de1fcee7ce7729ebfeb",
+  "selected_pdf_pages": [
+    126,
+    133,
+    134,
+    234,
+    235,
+    334,
+    338,
+    355,
+    358,
+    362,
+    390,
+    413,
+    414,
+    496,
+    497,
+    506,
+    509,
+    524,
+    525,
+    527,
+    548,
+    560,
+    571,
+    623,
+    624,
+    628,
+    629,
+    630
+  ],
+  "topics": {
+    "stress_management": 9,
+    "emotion_regulation": 4,
+    "cbt_psychoeducation": 7,
+    "relationships": 4,
+    "anxiety_depression_sleep": 6,
+    "self_esteem_acceptance": 5,
+    "professional_help": 5
+  }
 }
