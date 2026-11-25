@@ -77,3 +77,7 @@ By default `n_expert=0` preserves the original retrieval logic and does not enab
 - It does not prove dataset-wide reliability, Korean retrieval quality, model safety, absence of demographic bias, or clinical efficacy.
 - To expand beyond these five entries, a qualified human reviewer must compare each exact answer with an authoritative passage and document evidence in the manifest.
 - Never push raw/processed Q&A or embeddings to public GitHub. Use only for permitted non-commercial, non-clinical research; respect source permissions and third-party privacy.
+
+## Rights limitation (2026 OpenStax online edition)
+
+Current OpenStax Psychology 2e web pages explicitly state that ingesting the book into generative AI offerings may require OpenStax permission. This integration stores **no OpenStax full text**, only URLs as reference evidence, but some HF Q&A may derive from earlier editions of OpenStax. The HF dataset license tag alone does not establish that all upstream rights are cleared. Confirm the source edition and AI/RAG rights before deployment or broader redistribution. Until then keep this strictly an offline, non-commercial academic experiment.
