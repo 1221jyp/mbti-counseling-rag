@@ -47,14 +47,27 @@ def search(collection, embedding, doc_type, n):
     ]
 
 
-def retrieve(query, k=5, n_info=None):
-    """case와 info를 따로 검색해 합친 k개 청크를 유사도 순으로 반환한다.
+def retrieve(query, k=5, n_info=None, n_expert=0):
+    """기존 case/info 검색을 유지하며 opt-in으로 검수된 전문 지식을 추가한다.
 
-    1인칭 고민 문장은 내담자 발화로 된 case에 쏠리므로 info 개수를 고정한다.
-    n_info를 지정하면 기본 배분 대신 그 개수만큼 info를 반환한다.
+    n_expert=0은 기존 동작과 동일하다. n_expert>0은 k개의 결과 중
+    해당 개수만큼 별도 지식 컬렉션에 배정한다.
     """
-    n_info = default_n_info(k) if n_info is None else n_info
-    collection = get_client().get_collection(COLLECTION)
+    if not isinstance(k, int) or k < 1:
+        raise ValueError("k must be a positive integer")
+    if not isinstance(n_expert, int) or not (0 <= n_expert <= k):
+        raise ValueError("n_expert must be between 0 and k")
+    baseline_k = k - n_expert
+    n_info = default_n_info(baseline_k) if n_info is None else n_info
+    if not isinstance(n_info, int) or not (0 <= n_info <= baseline_k):
+        raise ValueError("n_info must be between 0 and k - n_expert")
     embedding = embed([query])
-    results = search(collection, embedding, "case", k - n_info) + search(collection, embedding, "info", n_info)
-    return sorted(results, key=lambda r: r["score"], reverse=True)
+    results = []
+    if baseline_k:
+        collection = get_client().get_collection(COLLECTION)
+        results += search(collection, embedding, "case", baseline_k - n_info)
+        results += search(collection, embedding, "info", n_info)
+    if n_expert:
+        from .hf_knowledge import search_knowledge
+        results += search_knowledge(embedding, n_expert)
+    return sorted(results, key=lambda result: result["score"], reverse=True)
