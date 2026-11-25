@@ -47,20 +47,24 @@ def search(collection, embedding, doc_type, n):
     ]
 
 
-def retrieve(query, k=5, n_info=None, n_expert=0):
+def retrieve(query, k=5, n_info=None, n_expert=0, n_textbook=0):
     """기존 case/info 검색을 유지하며 opt-in으로 검수된 전문 지식을 추가한다.
 
     n_expert=0은 기존 동작과 동일하다. n_expert>0은 k개의 결과 중
     해당 개수만큼 별도 지식 컬렉션에 배정한다.
+    n_textbook>0은 검토한 WHO 심리교육 지식 컬렉션에 배정한다.
+    두 옵션의 기본값 0은 기존 case/info 검색을 유지한다.
     """
     if not isinstance(k, int) or k < 1:
         raise ValueError("k must be a positive integer")
     if not isinstance(n_expert, int) or not (0 <= n_expert <= k):
         raise ValueError("n_expert must be between 0 and k")
-    baseline_k = k - n_expert
+    if not isinstance(n_textbook, int) or not (0 <= n_textbook <= k - n_expert):
+        raise ValueError("n_textbook must be between 0 and k - n_expert")
+    baseline_k = k - n_expert - n_textbook
     n_info = default_n_info(baseline_k) if n_info is None else n_info
     if not isinstance(n_info, int) or not (0 <= n_info <= baseline_k):
-        raise ValueError("n_info must be between 0 and k - n_expert")
+        raise ValueError("n_info must be between 0 and k - n_expert - n_textbook")
     embedding = embed([query])
     results = []
     if baseline_k:
@@ -70,4 +74,7 @@ def retrieve(query, k=5, n_info=None, n_expert=0):
     if n_expert:
         from .hf_knowledge import search_knowledge
         results += search_knowledge(embedding, n_expert)
+    if n_textbook:
+        from .who_knowledge import search_who
+        results += search_who(embedding, n_textbook)
     return sorted(results, key=lambda result: result["score"], reverse=True)
