@@ -1,0 +1,211 @@
+{
+  "source": "OpenStax Psychology 2e (uploaded 2026 edition)",
+  "source_url": "https://openstax.org/details/books/psychology-2e",
+  "license": "CC BY-NC-SA 4.0",
+  "status": "permission_reported_by_user_scope_not_independently_verified",
+  "rights_note": "User reports OpenStax permission obtained. Local noncommercial educational RAG only, and only if written permission covers it. No public distribution or external API use assumed; preserve original permission privately.",
+  "pdf_sha256": "2f08113c78127bc684922ad6a819db22bd4705ce9fcf28a07f36a2041b1474e2",
+  "sections": [
+    {
+      "section": "4.1 What Is Consciousness?",
+      "topic": "anxiety_depression_sleep",
+      "pdf_page_start": 126,
+      "pdf_page_end": 126,
+      "printed_page_start": 114,
+      "printed_page_end": 114
+    },
+    {
+      "section": "4.4 Sleep Problems and Disorders",
+      "topic": "anxiety_depression_sleep",
+      "pdf_page_start": 133,
+      "pdf_page_end": 137,
+      "printed_page_start": 121,
+      "printed_page_end": 125
+    },
+    {
+      "section": "7.3 Problem Solving",
+      "topic": "cbt_psychoeducation",
+      "pdf_page_start": 234,
+      "pdf_page_end": 239,
+      "printed_page_start": 222,
+      "printed_page_end": 227
+    },
+    {
+      "section": "10.1 Motivation",
+      "topic": "self_esteem_acceptance",
+      "pdf_page_start": 334,
+      "pdf_page_end": 339,
+      "printed_page_start": 322,
+      "printed_page_end": 327
+    },
+    {
+      "section": "10.4 Emotion",
+      "topic": "emotion_regulation",
+      "pdf_page_start": 354,
+      "pdf_page_end": 364,
+      "printed_page_start": 342,
+      "printed_page_end": 352
+    },
+    {
+      "section": "11.5 Humanistic Approaches",
+      "topic": "self_esteem_acceptance",
+      "pdf_page_start": 389,
+      "pdf_page_end": 390,
+      "printed_page_start": 377,
+      "printed_page_end": 378
+    },
+    {
+      "section": "12.1 What Is Social Psychology?",
+      "topic": "relationships",
+      "pdf_page_start": 412,
+      "pdf_page_end": 417,
+      "printed_page_start": 400,
+      "printed_page_end": 405
+    },
+    {
+      "section": "12.2 Self-presentation",
+      "topic": "relationships",
+      "pdf_page_start": 418,
+      "pdf_page_end": 420,
+      "printed_page_start": 406,
+      "printed_page_end": 408
+    },
+    {
+      "section": "12.5 Prejudice and Discrimination",
+      "topic": "relationships",
+      "pdf_page_start": 434,
+      "pdf_page_end": 439,
+      "printed_page_start": 422,
+      "printed_page_end": 427
+    },
+    {
+      "section": "12.7 Prosocial Behavior",
+      "topic": "relationships",
+      "pdf_page_start": 443,
+      "pdf_page_end": 447,
+      "printed_page_start": 431,
+      "printed_page_end": 435
+    },
+    {
+      "section": "14.1 What Is Stress?",
+      "topic": "stress_management",
+      "pdf_page_start": 496,
+      "pdf_page_end": 505,
+      "printed_page_start": 484,
+      "printed_page_end": 493
+    },
+    {
+      "section": "14.2 Stressors",
+      "topic": "stress_management",
+      "pdf_page_start": 506,
+      "pdf_page_end": 511,
+      "printed_page_start": 494,
+      "printed_page_end": 499
+    },
+    {
+      "section": "14.4 Regulation of Stress",
+      "topic": "stress_management",
+      "pdf_page_start": 524,
+      "pdf_page_end": 530,
+      "printed_page_start": 512,
+      "printed_page_end": 518
+    },
+    {
+      "section": "14.5 The Pursuit of Happiness",
+      "topic": "self_esteem_acceptance",
+      "pdf_page_start": 531,
+      "pdf_page_end": 538,
+      "printed_page_start": 519,
+      "printed_page_end": 526
+    },
+    {
+      "section": "15.1 What Are Psychological Disorders?",
+      "topic": "professional_help",
+      "pdf_page_start": 548,
+      "pdf_page_end": 551,
+      "printed_page_start": 536,
+      "printed_page_end": 539
+    },
+    {
+      "section": "15.4 Anxiety Disorders",
+      "topic": "anxiety_depression_sleep",
+      "pdf_page_start": 558,
+      "pdf_page_end": 563,
+      "printed_page_start": 546,
+      "printed_page_end": 551
+    },
+    {
+      "section": "15.7 Mood and Related Disorders",
+      "topic": "anxiety_depression_sleep",
+      "pdf_page_start": 570,
+      "pdf_page_end": 579,
+      "printed_page_start": 558,
+      "printed_page_end": 567
+    },
+    {
+      "section": "16.2 Types of Treatment",
+      "topic": "cbt_psychoeducation",
+      "pdf_page_start": 615,
+      "pdf_page_end": 627,
+      "printed_page_start": 603,
+      "printed_page_end": 615
+    },
+    {
+      "section": "16.3 Treatment Modalities",
+      "topic": "professional_help",
+      "pdf_page_start": 628,
+      "pdf_page_end": 631,
+      "printed_page_start": 616,
+      "printed_page_end": 619
+    },
+    {
+      "section": "16.5 The Sociocultural Model and Therapy Utilization",
+      "topic": "professional_help",
+      "pdf_page_start": 634,
+      "pdf_page_end": 637,
+      "printed_page_start": 622,
+      "printed_page_end": 625
+    }
+  ],
+  "records": 40,
+  "corpus_sha256": "a32d6250716d89263b82872a757b28fa877587a7f8530de1fcee7ce7729ebfeb",
+  "selected_pdf_pages": [
+    126,
+    133,
+    134,
+    234,
+    235,
+    334,
+    338,
+    355,
+    358,
+    362,
+    390,
+    413,
+    414,
+    496,
+    497,
+    506,
+    509,
+    524,
+    525,
+    527,
+    548,
+    560,
+    571,
+    623,
+    624,
+    628,
+    629,
+    630
+  ],
+  "topics": {
+    "stress_management": 9,
+    "emotion_regulation": 4,
+    "cbt_psychoeducation": 7,
+    "relationships": 4,
+    "anxiety_depression_sleep": 6,
+    "self_esteem_acceptance": 5,
+    "professional_help": 5
+  }
+}

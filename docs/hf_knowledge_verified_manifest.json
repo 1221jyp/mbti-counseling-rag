@@ -1,0 +1,43 @@
+{
+  "dataset": "SIR-Lab/Mental_Health_Knowledge_Dataset",
+  "screening_policy": "Only exact Q&A pairs cross-checked against listed authoritative OpenStax passages are included; evidence confirms general concept, not clinical accuracy for a patient.",
+  "screening_date": "2026-11-25",
+  "verification_level": "source_crosschecked_not_clinically_validated",
+  "records": [
+    {
+      "id": "hf-mhk-9b069304d473b8a6d630",
+      "reference_url": "https://openstax.org/books/psychology-2e/pages/14-4-regulation-of-stress",
+      "reference_section": "Problem-Focused and Emotion-Focused Coping",
+      "scope": "general_psychoeducation",
+      "note": "Definition and problem-solving examples align with OpenStax 14.4"
+    },
+    {
+      "id": "hf-mhk-a183a177489c3da48304",
+      "reference_url": "https://openstax.org/books/psychology-2e/pages/14-4-regulation-of-stress",
+      "reference_section": "Problem-Focused and Emotion-Focused Coping",
+      "scope": "general_psychoeducation",
+      "note": "General definition of emotion-focused coping aligns with OpenStax 14.4"
+    },
+    {
+      "id": "hf-mhk-ea1887eb00c0dac05f4c",
+      "reference_url": "https://openstax.org/books/psychology-2e/pages/14-4-regulation-of-stress",
+      "reference_section": "Social Support",
+      "scope": "general_psychoeducation",
+      "note": "Social support definition and stress-buffering relationship align with OpenStax 14.4"
+    },
+    {
+      "id": "hf-mhk-b2bda44a171d9299eb45",
+      "reference_url": "https://openstax.org/books/psychology-2e/pages/16-2-types-of-treatment",
+      "reference_section": "Psychotherapy: Cognitive-Behavioral Therapy",
+      "scope": "general_psychoeducation",
+      "note": "CBT targets unhelpful cognitions and behaviors, consistent with OpenStax 16.2"
+    },
+    {
+      "id": "hf-mhk-a33335672234c91bc8cb",
+      "reference_url": "https://openstax.org/books/psychology-2e/pages/14-2-stressors",
+      "reference_section": "Occupational Stress and Job Burnout",
+      "scope": "general_psychoeducation",
+      "note": "General job-burnout description and people-facing occupations align with OpenStax 14.2"
+    }
+  ]
+}

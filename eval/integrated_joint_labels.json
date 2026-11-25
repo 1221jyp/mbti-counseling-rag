@@ -1,0 +1,26 @@
+{
+  "status": "draft_legacy_case_labels_plus_editorial_textbook_labels",
+  "description": "Existing team synthetic questions; textbook IDs selected for relevant psychoeducation, not exhaustive or clinically reviewed. Case labels imported from eval/questions.jsonl and intersected with the local screened index.",
+  "questions": [
+    {"id":"q01","split":"dev","textbook_ids":["openstax-2026-stress-appraisal","openstax-2026-problem-coping","openstax-v2-p499-b1","openstax-2026-small-steps"]},
+    {"id":"q02","split":"dev","textbook_ids":["openstax-2026-stress-appraisal","openstax-2026-secondary-appraisal","openstax-2026-problem-coping","who-2026-unhooking"]},
+    {"id":"q05","split":"test","textbook_ids":["openstax-2026-life-changes","openstax-2026-emotion-coping","who-2026-making-room","who-2026-asking-support"]},
+    {"id":"q07","split":"dev","textbook_ids":["who-2026-social-activities","openstax-2026-social-support","who-2026-asking-support"]},
+    {"id":"q08","split":"test","textbook_ids":["openstax-2026-insomnia-anxiety","openstax-2026-insomnia-cbt","openstax-2026-sleep-routine","openstax-v2-p133-b11"]},
+    {"id":"q09","split":"dev","textbook_ids":["openstax-v2-p356-b2","openstax-v2-p337-b5","who-2026-grounding","who-2026-slow-breathing"]},
+    {"id":"q11","split":"test","textbook_ids":["who-2026-values","who-v2-03","who-2026-values-problem-solving","openstax-2026-identify-problem"]},
+    {"id":"q12","split":"dev","textbook_ids":["openstax-2026-problem-coping","openstax-2026-coping-context","who-2026-values-problem-solving"]},
+    {"id":"q14","split":"test","textbook_ids":["openstax-v2-p631-b3","who-v2-04","openstax-2026-acceptance-listening"]},
+    {"id":"q15","split":"dev","textbook_ids":["who-2026-withdrawal-cycle","who-2026-small-activities","who-2026-social-activities","who-2026-behavioral-activation"]},
+    {"id":"q16","split":"test","textbook_ids":["who-2026-behavioral-activation","who-2026-small-activities","who-2026-withdrawal-cycle","openstax-v2-p572-b3"]},
+    {"id":"q18","split":"dev","textbook_ids":["openstax-2026-small-steps","who-2026-grounding","who-2026-breaking-activities"]},
+    {"id":"q19","split":"test","textbook_ids":["openstax-2026-social-anxiety","openstax-2026-seek-professional","who-2026-small-activities"]},
+    {"id":"q20","split":"dev","textbook_ids":["openstax-2026-self-concept","openstax-2026-self-efficacy","who-2026-self-kindness"]},
+    {"id":"q21","split":"test","textbook_ids":["who-2026-unhooking","who-2026-making-room","who-2026-grounding","openstax-2026-coping-context"]},
+    {"id":"q24","split":"dev","textbook_ids":["openstax-2026-social-anxiety","who-2026-small-activities","who-2026-self-kindness"]},
+    {"id":"q25","split":"test","textbook_ids":["openstax-2026-all-or-nothing","openstax-2026-small-steps","who-2026-breaking-activities"]},
+    {"id":"q28","split":"dev","textbook_ids":["who-2026-awareness","who-2026-mood-tracking","openstax-2026-mood-disturbance"]},
+    {"id":"q29","split":"dev","textbook_ids":["openstax-2026-seek-professional","who-2026-self-help-limits","openstax-2026-therapy-intake","openstax-v2-p572-b3"]},
+    {"id":"q30","split":"test","textbook_ids":["openstax-2026-emotion-appraisal","who-2026-making-room","who-2026-grounding","who-v2-04"]}
+  ]
+}

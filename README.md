@@ -1,5 +1,47 @@
 # MBTI 연계 심리상담 챗봇: RAG 데이터셋
 
+## 교재 기반 RAG 확장 (2026-11-25)
+
+- WHO 심리교육 20청크, OpenStax Psychology 2e 40청크: 총 60개 선별 데이터. 원문 페이지·절·출처·라이선스 포함. 임상 검증을 의미하지 않음.
+- OpenStax 서면 허가를 받았다는 사용자 보고를 반영함. 허가서 세부 범위 미확인: 로컬 비상업적 RAG에 한정하며 공개 재배포 및 외부 LLM API 사용은 별도 확인 필요.
+- 두 JSONL은 로컬 전달 파일에 포함. GitHub에는 본문 및 벡터 DB를 올리지 않는다. 기존 849청크 기준선 유지.
+- `retrieve(query, k=5, n_expert=0, n_textbook=0, n_openstax=0)` — 신규 데이터는 선택적으로 사용, 기존 기본 동작 보존.
+- 신규 한국어 평가 질문 21개와 `eval/evaluate_textbooks.py` 추가. 라벨은 검토 전 초안.
+- 실제 BGE-M3 임베딩 및 검색 성능 평가 미실행. 로컬 실행 필요.
+
+실행 (별도 전달 JSONL 2개를 `data/processed/`에 복사 후):
+```powershell
+python -m pip install -r requirements.txt
+python scripts/build_who_knowledge_index.py --validate-only
+python scripts/build_openstax_knowledge_index.py --validate-only
+python scripts/build_who_knowledge_index.py --replace
+python scripts/build_openstax_knowledge_index.py --permission-confirmed --replace
+python eval/evaluate_textbooks.py --k 5
+```
+
+자세한 안내: [docs/TEXTBOOK_KNOWLEDGE.md](docs/TEXTBOOK_KNOWLEDGE.md).
+
+## 새 실험: 검증 근거가 있는 심리학 Q&A만 검색 (2026-11-25)
+
+- 추가 코드: SIR-Lab/Mental_Health_Knowledge_Dataset 전처리 및 BGE-M3 + Chroma 실험용 컬렉션.
+- 정확한 원문 근거가 연결되지 않은 대다수 Q&A는 제외하고, OpenStax 교재의 해당 절과 **개념 설명이 대조된 5개만** 선별한다.
+- 이는 대학 교재와의 내용 일치 확인이지 **임상적 정확성의 완전한 검증이나 전문가 감수는 아님**.
+- 근거 목록: `docs/hf_knowledge_verified_manifest.json`; 상세 실행: [docs/HF_KNOWLEDGE.md](docs/HF_KNOWLEDGE.md).
+- 새 인덱스는 `hf_knowledge_info`에 따로 저장하며 기본 `retrieve(..., n_expert=0)`은 기존 검색 결과를 유지한다.
+- 로컬에서 기존 실험용 DB를 만든 적 있다면 `python scripts/build_hf_knowledge_index.py --replace`로 미검증 항목을 제거한다. **기존 `rag_corpus`는 삭제하지 않는다.**
+- GitHub 반영 상태: **코드 및 문서 추가 완료 / 실제 Hugging Face 원본 다운로드·임베딩·한국어 검색 평가 미실행**.
+
+실행 요약 (VS Code PowerShell, 작업 브랜치):
+
+```powershell
+python -m pip install huggingface_hub
+python -m unittest discover -s tests -p "test_hf_knowledge.py" -v
+python scripts/build_hf_knowledge_corpus.py --download
+python scripts/build_hf_knowledge_index.py --replace
+```
+
+이 절은 기존 `case/info` 데이터 코퍼스 통계(849개 청크)에 신규 실험 데이터를 합산하지 않는다. 승인 기준 확대는 항목별 원문 근거 검토와 새로운 평가 후에만 실시한다.
+
 사례(`case`) 문서와 정보(`info`) 문서로 구성한 RAG 코퍼스와 검색 함수, 평가 스크립트다.
 
 파인튜닝 데이터(ESConv, Counsel-Chat, AI Hub 감성 대화 말뭉치)는 RAG와 효과를 분리해 평가하기 위해 포함하지 않는다.
